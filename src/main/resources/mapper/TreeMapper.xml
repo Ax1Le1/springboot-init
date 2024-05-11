@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.dao.TreeDao">
+
+
+    <resultMap id="BaseResultMap" type="generator.domain.Tree">
+        <result property="bsm" column="bsm" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="value" column="value" jdbcType="VARCHAR"/>
+        <result property="unitprice" column="unitprice" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        bsm,name,value,unitprice
+    </sql>
+
+    <select id="selectByPrimaryKey"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tree
+        where 
+    </select>
+
+    <select id="listTree"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tree
+        <where>
+            <if test="bsm != null">
+                and bsm = #{bsm ,jdbcType=VARCHAR}
+            </if>
+            <if test="name != null">
+                and name = #{name ,jdbcType=VARCHAR}
+            </if>
+            <if test="value != null">
+                and value = #{value ,jdbcType=VARCHAR}
+            </if>
+            <if test="unitprice != null">
+                and unitprice = #{unitprice ,jdbcType=DOUBLE}
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey">
+        delete
+        from tree
+        where 
+    </delete>
+
+    <insert id="insert" >
+    insert into tree
+            (bsm, name, value, unitprice)
+        values (#{bsm,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, 
+				#{unitprice,jdbcType=DOUBLE})
+    </insert>
+
+
+    <insert id="insertSelective" >
+        insert into tree
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bsm != null">bsm,</if>
+            <if test="name != null">name,</if>
+            <if test="value != null">value,</if>
+            <if test="unitprice != null">unitprice,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+             <if test="bsm != null">
+                #{bsm ,jdbcType=VARCHAR},
+             </if>
+             <if test="name != null">
+                #{name ,jdbcType=VARCHAR},
+             </if>
+             <if test="value != null">
+                #{value ,jdbcType=VARCHAR},
+             </if>
+             <if test="unitprice != null">
+                #{unitprice ,jdbcType=DOUBLE},
+             </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="generator.domain.Tree">
+        update tree
+        <set>
+            <if test="bsm != null">
+                bsm = #{bsm,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="value != null">
+                value = #{value,jdbcType=VARCHAR},
+            </if>
+            <if test="unitprice != null">
+                unitprice = #{unitprice,jdbcType=DOUBLE},
+            </if>
+        </set>
+        where 
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="generator.domain.Tree">
+        update tree
+        set 
+            bsm	= #{bsm,jdbcType=VARCHAR},
+            name	= #{name,jdbcType=VARCHAR},
+            value	= #{value,jdbcType=VARCHAR},
+            unitprice	= #{unitprice,jdbcType=DOUBLE}
+        where 
+    </update>
+</mapper>

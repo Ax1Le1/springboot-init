@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spirit.springbootinit.mapper.UserDao">
+
+
+    <resultMap id="BaseResultMap" type="com.spirit.springbootinit.model.entity.User">
+        <id property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="age" column="age" jdbcType="INTEGER"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="sjh" column="sjh" jdbcType="VARCHAR"/>
+        <result property="carweight" column="carWeight" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,age,email,sjh,carWeight
+    </sql>
+
+    <select id="selectByPrimaryKey"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where  id = #{id,jdbcType=VARCHAR} 
+    </select>
+
+    <select id="listUser"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        <where>
+            <if test="id != null">
+                and id = #{id ,jdbcType=VARCHAR}
+            </if>
+            <if test="name != null">
+                and name = #{name ,jdbcType=VARCHAR}
+            </if>
+            <if test="age != null">
+                and age = #{age ,jdbcType=INTEGER}
+            </if>
+            <if test="email != null">
+                and email = #{email ,jdbcType=VARCHAR}
+            </if>
+            <if test="sjh != null">
+                and sjh = #{sjh ,jdbcType=VARCHAR}
+            </if>
+            <if test="carweight != null">
+                and carWeight = #{carweight ,jdbcType=DOUBLE}
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey">
+        delete
+        from user
+        where id = #{id,jdbcType=VARCHAR} 
+    </delete>
+
+    <insert id="insert" >
+    insert into user
+            (id, name, age, email, sjh, carWeight)
+        values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
+				#{email,jdbcType=VARCHAR}, #{sjh,jdbcType=VARCHAR}, #{carweight,jdbcType=DOUBLE})
+    </insert>
+
+
+    <insert id="insertSelective" >
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="name != null">name,</if>
+            <if test="age != null">age,</if>
+            <if test="email != null">email,</if>
+            <if test="sjh != null">sjh,</if>
+            <if test="carweight != null">carWeight,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+             <if test="id != null">
+                #{id ,jdbcType=VARCHAR},
+             </if>
+             <if test="name != null">
+                #{name ,jdbcType=VARCHAR},
+             </if>
+             <if test="age != null">
+                #{age ,jdbcType=INTEGER},
+             </if>
+             <if test="email != null">
+                #{email ,jdbcType=VARCHAR},
+             </if>
+             <if test="sjh != null">
+                #{sjh ,jdbcType=VARCHAR},
+             </if>
+             <if test="carweight != null">
+                #{carweight ,jdbcType=DOUBLE},
+             </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.spirit.springbootinit.model.entity.User">
+        update user
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                age = #{age,jdbcType=INTEGER},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="sjh != null">
+                sjh = #{sjh,jdbcType=VARCHAR},
+            </if>
+            <if test="carweight != null">
+                carWeight = #{carweight,jdbcType=DOUBLE},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR} 
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.spirit.springbootinit.model.entity.User">
+        update user
+        set 
+            name	= #{name,jdbcType=VARCHAR},
+            age	= #{age,jdbcType=INTEGER},
+            email	= #{email,jdbcType=VARCHAR},
+            sjh	= #{sjh,jdbcType=VARCHAR},
+            carWeight	= #{carweight,jdbcType=DOUBLE}
+        where id = #{id,jdbcType=VARCHAR} 
+    </update>
+</mapper>

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spirit.springbootinit.mapper.WeighingDao">
+
+
+    <resultMap id="BaseResultMap" type="com.spirit.springbootinit.model.entity.Weighing">
+        <id property="bsm" column="bsm" jdbcType="VARCHAR"/>
+        <result property="fisrtweighing" column="fisrtWeighing" jdbcType="DOUBLE"/>
+        <result property="firsttype" column="firstType" jdbcType="VARCHAR"/>
+        <result property="firstmonesy" column="firstMonesy" jdbcType="DOUBLE"/>
+        <result property="secondweighing" column="secondWeighing" jdbcType="DOUBLE"/>
+        <result property="secondtype" column="secondType" jdbcType="VARCHAR"/>
+        <result property="secondmonesy" column="secondMonesy" jdbcType="DOUBLE"/>
+        <result property="thirdweighing" column="thirdWeighing" jdbcType="DOUBLE"/>
+        <result property="thirdtype" column="thirdType" jdbcType="VARCHAR"/>
+        <result property="thirdmonesy" column="thirdMonesy" jdbcType="DOUBLE"/>
+        <result property="allmonesy" column="allMonesy" jdbcType="DOUBLE"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="editBy" column="edit_by" jdbcType="VARCHAR"/>
+        <result property="editTime" column="edit_time" jdbcType="TIMESTAMP"/>
+        <result property="seller" column="seller" jdbcType="VARCHAR"/>
+        <result property="sellerid" column="sellerid" jdbcType="VARCHAR"/>
+        <result property="carweight" column="carWeight" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        bsm,fisrtWeighing,firstType,firstMonesy,secondWeighing,secondType,secondMonesy,thirdWeighing,thirdType,thirdMonesy,
+		allMonesy,create_by,create_time,edit_by,edit_time,seller,sellerid,carWeight
+    </sql>
+
+    <select id="selectByPrimaryKey"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from weighing
+        where  bsm = #{bsm,jdbcType=VARCHAR} 
+    </select>
+
+    <select id="listWeighing"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from weighing
+        <where>
+            <if test="bsm != null">
+                and bsm = #{bsm ,jdbcType=VARCHAR}
+            </if>
+            <if test="fisrtweighing != null">
+                and fisrtWeighing = #{fisrtweighing ,jdbcType=DOUBLE}
+            </if>
+            <if test="firsttype != null">
+                and firstType = #{firsttype ,jdbcType=VARCHAR}
+            </if>
+            <if test="firstmonesy != null">
+                and firstMonesy = #{firstmonesy ,jdbcType=DOUBLE}
+            </if>
+            <if test="secondweighing != null">
+                and secondWeighing = #{secondweighing ,jdbcType=DOUBLE}
+            </if>
+            <if test="secondtype != null">
+                and secondType = #{secondtype ,jdbcType=VARCHAR}
+            </if>
+            <if test="secondmonesy != null">
+                and secondMonesy = #{secondmonesy ,jdbcType=DOUBLE}
+            </if>
+            <if test="thirdweighing != null">
+                and thirdWeighing = #{thirdweighing ,jdbcType=DOUBLE}
+            </if>
+            <if test="thirdtype != null">
+                and thirdType = #{thirdtype ,jdbcType=VARCHAR}
+            </if>
+            <if test="thirdmonesy != null">
+                and thirdMonesy = #{thirdmonesy ,jdbcType=DOUBLE}
+            </if>
+            <if test="allmonesy != null">
+                and allMonesy = #{allmonesy ,jdbcType=DOUBLE}
+            </if>
+            <if test="createBy != null">
+                and create_by = #{createBy ,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime ,jdbcType=TIMESTAMP}
+            </if>
+            <if test="editBy != null">
+                and edit_by = #{editBy ,jdbcType=VARCHAR}
+            </if>
+            <if test="editTime != null">
+                and edit_time = #{editTime ,jdbcType=TIMESTAMP}
+            </if>
+            <if test="seller != null">
+                and seller = #{seller ,jdbcType=VARCHAR}
+            </if>
+            <if test="sellerid != null">
+                and sellerid = #{sellerid ,jdbcType=VARCHAR}
+            </if>
+            <if test="carweight != null">
+                and carWeight = #{carweight ,jdbcType=DOUBLE}
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey">
+        delete
+        from weighing
+        where bsm = #{bsm,jdbcType=VARCHAR} 
+    </delete>
+
+    <insert id="insert" >
+    insert into weighing
+            (bsm, fisrtWeighing, firstType, firstMonesy, secondWeighing, secondType, secondMonesy, thirdWeighing, thirdType, thirdMonesy, 
+			allMonesy, create_by, create_time, edit_by, edit_time, seller, sellerid, carWeight)
+        values (#{bsm,jdbcType=VARCHAR}, #{fisrtweighing,jdbcType=DOUBLE}, #{firsttype,jdbcType=VARCHAR},
+				#{firstmonesy,jdbcType=DOUBLE}, #{secondweighing,jdbcType=DOUBLE}, #{secondtype,jdbcType=VARCHAR},
+				#{secondmonesy,jdbcType=DOUBLE}, #{thirdweighing,jdbcType=DOUBLE}, #{thirdtype,jdbcType=VARCHAR},
+				#{thirdmonesy,jdbcType=DOUBLE}, #{allmonesy,jdbcType=DOUBLE}, #{createBy,jdbcType=VARCHAR}, 
+				#{createTime,jdbcType=TIMESTAMP}, #{editBy,jdbcType=VARCHAR}, #{editTime,jdbcType=TIMESTAMP}, 
+				#{seller,jdbcType=VARCHAR}, #{sellerid,jdbcType=VARCHAR}, #{carweight,jdbcType=DOUBLE})
+    </insert>
+
+
+    <insert id="insertSelective" >
+        insert into weighing
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bsm != null">bsm,</if>
+            <if test="fisrtweighing != null">fisrtWeighing,</if>
+            <if test="firsttype != null">firstType,</if>
+            <if test="firstmonesy != null">firstMonesy,</if>
+            <if test="secondweighing != null">secondWeighing,</if>
+            <if test="secondtype != null">secondType,</if>
+            <if test="secondmonesy != null">secondMonesy,</if>
+            <if test="thirdweighing != null">thirdWeighing,</if>
+            <if test="thirdtype != null">thirdType,</if>
+            <if test="thirdmonesy != null">thirdMonesy,</if>
+            <if test="allmonesy != null">allMonesy,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="editBy != null">edit_by,</if>
+            <if test="editTime != null">edit_time,</if>
+            <if test="seller != null">seller,</if>
+            <if test="sellerid != null">sellerid,</if>
+            <if test="carweight != null">carWeight,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+             <if test="bsm != null">
+                #{bsm ,jdbcType=VARCHAR},
+             </if>
+             <if test="fisrtweighing != null">
+                #{fisrtweighing ,jdbcType=DOUBLE},
+             </if>
+             <if test="firsttype != null">
+                #{firsttype ,jdbcType=VARCHAR},
+             </if>
+             <if test="firstmonesy != null">
+                #{firstmonesy ,jdbcType=DOUBLE},
+             </if>
+             <if test="secondweighing != null">
+                #{secondweighing ,jdbcType=DOUBLE},
+             </if>
+             <if test="secondtype != null">
+                #{secondtype ,jdbcType=VARCHAR},
+             </if>
+             <if test="secondmonesy != null">
+                #{secondmonesy ,jdbcType=DOUBLE},
+             </if>
+             <if test="thirdweighing != null">
+                #{thirdweighing ,jdbcType=DOUBLE},
+             </if>
+             <if test="thirdtype != null">
+                #{thirdtype ,jdbcType=VARCHAR},
+             </if>
+             <if test="thirdmonesy != null">
+                #{thirdmonesy ,jdbcType=DOUBLE},
+             </if>
+             <if test="allmonesy != null">
+                #{allmonesy ,jdbcType=DOUBLE},
+             </if>
+             <if test="createBy != null">
+                #{createBy ,jdbcType=VARCHAR},
+             </if>
+             <if test="createTime != null">
+                #{createTime ,jdbcType=TIMESTAMP},
+             </if>
+             <if test="editBy != null">
+                #{editBy ,jdbcType=VARCHAR},
+             </if>
+             <if test="editTime != null">
+                #{editTime ,jdbcType=TIMESTAMP},
+             </if>
+             <if test="seller != null">
+                #{seller ,jdbcType=VARCHAR},
+             </if>
+             <if test="sellerid != null">
+                #{sellerid ,jdbcType=VARCHAR},
+             </if>
+             <if test="carweight != null">
+                #{carweight ,jdbcType=DOUBLE},
+             </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.spirit.springbootinit.model.entity.Weighing">
+        update weighing
+        <set>
+            <if test="fisrtweighing != null">
+                fisrtWeighing = #{fisrtweighing,jdbcType=DOUBLE},
+            </if>
+            <if test="firsttype != null">
+                firstType = #{firsttype,jdbcType=VARCHAR},
+            </if>
+            <if test="firstmonesy != null">
+                firstMonesy = #{firstmonesy,jdbcType=DOUBLE},
+            </if>
+            <if test="secondweighing != null">
+                secondWeighing = #{secondweighing,jdbcType=DOUBLE},
+            </if>
+            <if test="secondtype != null">
+                secondType = #{secondtype,jdbcType=VARCHAR},
+            </if>
+            <if test="secondmonesy != null">
+                secondMonesy = #{secondmonesy,jdbcType=DOUBLE},
+            </if>
+            <if test="thirdweighing != null">
+                thirdWeighing = #{thirdweighing,jdbcType=DOUBLE},
+            </if>
+            <if test="thirdtype != null">
+                thirdType = #{thirdtype,jdbcType=VARCHAR},
+            </if>
+            <if test="thirdmonesy != null">
+                thirdMonesy = #{thirdmonesy,jdbcType=DOUBLE},
+            </if>
+            <if test="allmonesy != null">
+                allMonesy = #{allmonesy,jdbcType=DOUBLE},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="editBy != null">
+                edit_by = #{editBy,jdbcType=VARCHAR},
+            </if>
+            <if test="editTime != null">
+                edit_time = #{editTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="seller != null">
+                seller = #{seller,jdbcType=VARCHAR},
+            </if>
+            <if test="sellerid != null">
+                sellerid = #{sellerid,jdbcType=VARCHAR},
+            </if>
+            <if test="carweight != null">
+                carWeight = #{carweight,jdbcType=DOUBLE},
+            </if>
+        </set>
+        where bsm = #{bsm,jdbcType=VARCHAR} 
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.spirit.springbootinit.model.entity.Weighing">
+        update weighing
+        set 
+            fisrtWeighing	= #{fisrtweighing,jdbcType=DOUBLE},
+            firstType	= #{firsttype,jdbcType=VARCHAR},
+            firstMonesy	= #{firstmonesy,jdbcType=DOUBLE},
+            secondWeighing	= #{secondweighing,jdbcType=DOUBLE},
+            secondType	= #{secondtype,jdbcType=VARCHAR},
+            secondMonesy	= #{secondmonesy,jdbcType=DOUBLE},
+            thirdWeighing	= #{thirdweighing,jdbcType=DOUBLE},
+            thirdType	= #{thirdtype,jdbcType=VARCHAR},
+            thirdMonesy	= #{thirdmonesy,jdbcType=DOUBLE},
+            allMonesy	= #{allmonesy,jdbcType=DOUBLE},
+            create_by	= #{createBy,jdbcType=VARCHAR},
+            create_time	= #{createTime,jdbcType=TIMESTAMP},
+            edit_by	= #{editBy,jdbcType=VARCHAR},
+            edit_time	= #{editTime,jdbcType=TIMESTAMP},
+            seller	= #{seller,jdbcType=VARCHAR},
+            sellerid	= #{sellerid,jdbcType=VARCHAR},
+            carWeight	= #{carweight,jdbcType=DOUBLE}
+        where bsm = #{bsm,jdbcType=VARCHAR} 
+    </update>
+</mapper>
