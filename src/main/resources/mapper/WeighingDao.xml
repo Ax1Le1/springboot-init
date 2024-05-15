@@ -2,12 +2,12 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.spirit.springbootinit.mapper.WeighingDao">
+<mapper namespace="com.spirit.springbootinit.mapper.WeighingDao2">
 
 
     <resultMap id="BaseResultMap" type="com.spirit.springbootinit.model.entity.Weighing">
         <id property="bsm" column="bsm" jdbcType="VARCHAR"/>
-        <result property="fisrtweighing" column="fisrtWeighing" jdbcType="DOUBLE"/>
+        <result property="firstweighing" column="firstweighing" jdbcType="DOUBLE"/>
         <result property="firsttype" column="firstType" jdbcType="VARCHAR"/>
         <result property="firstmonesy" column="firstMonesy" jdbcType="DOUBLE"/>
         <result property="secondweighing" column="secondWeighing" jdbcType="DOUBLE"/>
@@ -17,18 +17,18 @@
         <result property="thirdtype" column="thirdType" jdbcType="VARCHAR"/>
         <result property="thirdmonesy" column="thirdMonesy" jdbcType="DOUBLE"/>
         <result property="allmonesy" column="allMonesy" jdbcType="DOUBLE"/>
-        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
-        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-        <result property="editBy" column="edit_by" jdbcType="VARCHAR"/>
-        <result property="editTime" column="edit_time" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="createby" jdbcType="VARCHAR"/>
+        <result property="createTime" column="createtime" jdbcType="TIMESTAMP"/>
+        <result property="editBy" column="editby" jdbcType="VARCHAR"/>
+        <result property="editTime" column="edittime" jdbcType="TIMESTAMP"/>
         <result property="seller" column="seller" jdbcType="VARCHAR"/>
         <result property="sellerid" column="sellerid" jdbcType="VARCHAR"/>
         <result property="carweight" column="carWeight" jdbcType="DOUBLE"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        bsm,fisrtWeighing,firstType,firstMonesy,secondWeighing,secondType,secondMonesy,thirdWeighing,thirdType,thirdMonesy,
-		allMonesy,create_by,create_time,edit_by,edit_time,seller,sellerid,carWeight
+        bsm,firstweighing,firstType,firstMonesy,secondWeighing,secondType,secondMonesy,thirdWeighing,thirdType,thirdMonesy,
+		allMonesy,createby,createtime,editby,edittime,seller,sellerid,carWeight
     </sql>
 
     <select id="selectByPrimaryKey"  resultMap="BaseResultMap">
@@ -46,8 +46,8 @@
             <if test="bsm != null">
                 and bsm = #{bsm ,jdbcType=VARCHAR}
             </if>
-            <if test="fisrtweighing != null">
-                and fisrtWeighing = #{fisrtweighing ,jdbcType=DOUBLE}
+            <if test="firstweighing != null">
+                and firstweighing = #{firstweighing ,jdbcType=DOUBLE}
             </if>
             <if test="firsttype != null">
                 and firstType = #{firsttype ,jdbcType=VARCHAR}
@@ -77,16 +77,16 @@
                 and allMonesy = #{allmonesy ,jdbcType=DOUBLE}
             </if>
             <if test="createBy != null">
-                and create_by = #{createBy ,jdbcType=VARCHAR}
+                and createby = #{createBy ,jdbcType=VARCHAR}
             </if>
             <if test="createTime != null">
-                and create_time = #{createTime ,jdbcType=TIMESTAMP}
+                and createtime = #{createTime ,jdbcType=TIMESTAMP}
             </if>
             <if test="editBy != null">
-                and edit_by = #{editBy ,jdbcType=VARCHAR}
+                and editby = #{editBy ,jdbcType=VARCHAR}
             </if>
             <if test="editTime != null">
-                and edit_time = #{editTime ,jdbcType=TIMESTAMP}
+                and edittime = #{editTime ,jdbcType=TIMESTAMP}
             </if>
             <if test="seller != null">
                 and seller = #{seller ,jdbcType=VARCHAR}
@@ -108,9 +108,9 @@
 
     <insert id="insert" >
     insert into weighing
-            (bsm, fisrtWeighing, firstType, firstMonesy, secondWeighing, secondType, secondMonesy, thirdWeighing, thirdType, thirdMonesy, 
-			allMonesy, create_by, create_time, edit_by, edit_time, seller, sellerid, carWeight)
-        values (#{bsm,jdbcType=VARCHAR}, #{fisrtweighing,jdbcType=DOUBLE}, #{firsttype,jdbcType=VARCHAR},
+            (bsm, firstweighing, firstType, firstMonesy, secondWeighing, secondType, secondMonesy, thirdWeighing, thirdType, thirdMonesy, 
+			allMonesy, createby, createtime, editby, edittime, seller, sellerid, carWeight)
+        values (#{bsm,jdbcType=VARCHAR}, #{firstweighing,jdbcType=DOUBLE}, #{firsttype,jdbcType=VARCHAR},
 				#{firstmonesy,jdbcType=DOUBLE}, #{secondweighing,jdbcType=DOUBLE}, #{secondtype,jdbcType=VARCHAR},
 				#{secondmonesy,jdbcType=DOUBLE}, #{thirdweighing,jdbcType=DOUBLE}, #{thirdtype,jdbcType=VARCHAR},
 				#{thirdmonesy,jdbcType=DOUBLE}, #{allmonesy,jdbcType=DOUBLE}, #{createBy,jdbcType=VARCHAR}, 
@@ -123,7 +123,7 @@
         insert into weighing
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="bsm != null">bsm,</if>
-            <if test="fisrtweighing != null">fisrtWeighing,</if>
+            <if test="firstweighing != null">firstweighing,</if>
             <if test="firsttype != null">firstType,</if>
             <if test="firstmonesy != null">firstMonesy,</if>
             <if test="secondweighing != null">secondWeighing,</if>
@@ -133,10 +133,10 @@
             <if test="thirdtype != null">thirdType,</if>
             <if test="thirdmonesy != null">thirdMonesy,</if>
             <if test="allmonesy != null">allMonesy,</if>
-            <if test="createBy != null">create_by,</if>
-            <if test="createTime != null">create_time,</if>
-            <if test="editBy != null">edit_by,</if>
-            <if test="editTime != null">edit_time,</if>
+            <if test="createBy != null">createby,</if>
+            <if test="createTime != null">createtime,</if>
+            <if test="editBy != null">editby,</if>
+            <if test="editTime != null">edittime,</if>
             <if test="seller != null">seller,</if>
             <if test="sellerid != null">sellerid,</if>
             <if test="carweight != null">carWeight,</if>
@@ -145,8 +145,8 @@
              <if test="bsm != null">
                 #{bsm ,jdbcType=VARCHAR},
              </if>
-             <if test="fisrtweighing != null">
-                #{fisrtweighing ,jdbcType=DOUBLE},
+             <if test="firstweighing != null">
+                #{firstweighing ,jdbcType=DOUBLE},
              </if>
              <if test="firsttype != null">
                 #{firsttype ,jdbcType=VARCHAR},
@@ -202,8 +202,8 @@
     <update id="updateByPrimaryKeySelective" parameterType="com.spirit.springbootinit.model.entity.Weighing">
         update weighing
         <set>
-            <if test="fisrtweighing != null">
-                fisrtWeighing = #{fisrtweighing,jdbcType=DOUBLE},
+            <if test="firstweighing != null">
+                firstweighing = #{firstweighing,jdbcType=DOUBLE},
             </if>
             <if test="firsttype != null">
                 firstType = #{firsttype,jdbcType=VARCHAR},
@@ -233,16 +233,16 @@
                 allMonesy = #{allmonesy,jdbcType=DOUBLE},
             </if>
             <if test="createBy != null">
-                create_by = #{createBy,jdbcType=VARCHAR},
+                createby = #{createBy,jdbcType=VARCHAR},
             </if>
             <if test="createTime != null">
-                create_time = #{createTime,jdbcType=TIMESTAMP},
+                createtime = #{createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="editBy != null">
-                edit_by = #{editBy,jdbcType=VARCHAR},
+                editby = #{editBy,jdbcType=VARCHAR},
             </if>
             <if test="editTime != null">
-                edit_time = #{editTime,jdbcType=TIMESTAMP},
+                edittime = #{editTime,jdbcType=TIMESTAMP},
             </if>
             <if test="seller != null">
                 seller = #{seller,jdbcType=VARCHAR},
@@ -260,7 +260,7 @@
     <update id="updateByPrimaryKey" parameterType="com.spirit.springbootinit.model.entity.Weighing">
         update weighing
         set 
-            fisrtWeighing	= #{fisrtweighing,jdbcType=DOUBLE},
+            firstweighing	= #{firstweighing,jdbcType=DOUBLE},
             firstType	= #{firsttype,jdbcType=VARCHAR},
             firstMonesy	= #{firstmonesy,jdbcType=DOUBLE},
             secondWeighing	= #{secondweighing,jdbcType=DOUBLE},
@@ -270,10 +270,10 @@
             thirdType	= #{thirdtype,jdbcType=VARCHAR},
             thirdMonesy	= #{thirdmonesy,jdbcType=DOUBLE},
             allMonesy	= #{allmonesy,jdbcType=DOUBLE},
-            create_by	= #{createBy,jdbcType=VARCHAR},
-            create_time	= #{createTime,jdbcType=TIMESTAMP},
-            edit_by	= #{editBy,jdbcType=VARCHAR},
-            edit_time	= #{editTime,jdbcType=TIMESTAMP},
+            createby	= #{createBy,jdbcType=VARCHAR},
+            createtime	= #{createTime,jdbcType=TIMESTAMP},
+            editby	= #{editBy,jdbcType=VARCHAR},
+            edittime	= #{editTime,jdbcType=TIMESTAMP},
             seller	= #{seller,jdbcType=VARCHAR},
             sellerid	= #{sellerid,jdbcType=VARCHAR},
             carWeight	= #{carweight,jdbcType=DOUBLE}

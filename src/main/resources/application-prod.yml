@@ -6,13 +6,15 @@ spring:
     name: springboot-init
   # 默认 dev 环境
   profiles:
-    active: dev
+    active:
+      on-profile:
+        - prod
   # 支持 swagger3
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  # session 配置
-  #session:
+    # session 配置
+    #session:
     # todo 取消注释开启分布式 session（须先配置 Redis）
     # store-type: redis
     # 30 天过期
@@ -21,17 +23,17 @@ spring:
   # todo 需替换配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/spirit
+    url: jdbc:mysql://112.124.61.219:3306/spirit
     username: root
     password: 123456
   # Redis 配置
   # todo 需替换配置，然后取消注释
-#  redis:
-#    database: 1
-#    host: localhost
-#    port: 6379
-#    timeout: 5000
-#    password: 123456
+  #  redis:
+  #    database: 1
+  #    host: localhost
+  #    port: 6379
+  #    timeout: 5000
+  #    password: 123456
   # Elasticsearch 配置
   # todo 需替换配置，然后取消注释
 #  elasticsearch:
@@ -40,7 +42,7 @@ spring:
 #    password: 123456
 server:
   address: 0.0.0.0
-  port: 8101
+  port: 9096
   servlet:
     context-path: /api
     # cookie 30 天过期

@@ -11,4 +11,6 @@ import com.spirit.springbootinit.model.entity.Weighing;
  */
 public interface WeighingService extends IService<Weighing> {
     Weighing add(Weighing weighing);
+
+    Weighing calculateSum(String bsm);
 }

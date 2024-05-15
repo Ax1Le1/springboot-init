@@ -8,7 +8,6 @@ import com.spirit.springbootinit.exception.BusinessException;
 import com.spirit.springbootinit.mapper.UserDao;
 import com.spirit.springbootinit.model.dto.user.UserQueryRequest;
 import com.spirit.springbootinit.model.entity.User;
-import com.spirit.springbootinit.model.enums.UserRoleEnum;
 import com.spirit.springbootinit.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -30,7 +29,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     private static final String SALT = "yupi";
 
     @Override
-    public long userRegister(String userAccount, String userPassword, String checkPassword) {
+    public String userRegister(String userAccount, String userPassword, String checkPassword) {
         // 1. 校验
         if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword)) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "参数为空");
@@ -57,8 +56,8 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
             String encryptPassword = DigestUtils.md5DigestAsHex((SALT + userPassword).getBytes());
             // 3. 插入数据
             User user = new User();
-            user.setUserAccount(userAccount);
-            user.setUserPassword(encryptPassword);
+//            user.setUserAccount(userAccount);
+//            user.setUserPassword(encryptPassword);
             boolean saveResult = this.save(user);
             if (!saveResult) {
                 throw new BusinessException(ErrorCode.SYSTEM_ERROR, "注册失败，数据库错误");
@@ -110,7 +109,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
             throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
         }
         // 从数据库查询（追求性能的话可以注释，直接走缓存）
-        long userId = currentUser.getId();
+        String userId = currentUser.getId();
         currentUser = this.getById(userId);
         if (currentUser == null) {
             throw new BusinessException(ErrorCode.NOT_LOGIN_ERROR);
@@ -134,7 +133,8 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 
     @Override
     public boolean isAdmin(User user) {
-        return user != null && UserRoleEnum.ADMIN.getValue().equals(user.getUserRole());
+//        return user != null && UserRoleEnum.ADMIN.getValue().equals(user.getUserRole());
+        return true;
     }
 
     /**

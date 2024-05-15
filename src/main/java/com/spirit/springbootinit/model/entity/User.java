@@ -51,4 +51,15 @@ public class User implements Serializable {
     @ApiModelProperty("车重")
     private Double carweight;
 
+    /**
+     * 账号
+     */
+    @ApiModelProperty("账号")
+    private String userAccount;
+
+    /**
+     * 密码
+     */
+    @ApiModelProperty("密码")
+    private String userPassword;
 }

@@ -1,5 +1,7 @@
 package com.spirit.springbootinit.model.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -10,30 +12,38 @@ import java.util.Date;
 
 
 /**
- * [weighing] 
+ * [weighing]
  */
 @ApiModel(description = "")
 @Data
+@TableName(value = "weighing")
 public class Weighing implements Serializable {
 
     /**
      * 标识码
      */
     @ApiModelProperty("标识码")
-    @NotNull(message="[标识码]不能为空")
+    @NotNull(message = "[标识码]不能为空")
+    @TableId
     private String bsm;
 
     /**
      * 第一次称重
      */
     @ApiModelProperty("第一次称重")
-    private Double fisrtweighing;
+    private Double firstweighing;
 
     /**
      * 第一次称重类型
      */
     @ApiModelProperty("第一次称重类型")
     private String firsttype;
+
+    /**
+     * 第一次金额
+     */
+    @ApiModelProperty("第一次金额")
+    private Double firstprice;
 
     /**
      * 第一次金额
@@ -58,7 +68,11 @@ public class Weighing implements Serializable {
      */
     @ApiModelProperty("第二次金额")
     private Double secondmonesy;
-
+    /**
+     * 第二次金额
+     */
+    @ApiModelProperty("第二次金额")
+    private Double secondprice;
     /**
      * 第三次称重
      */
@@ -76,6 +90,11 @@ public class Weighing implements Serializable {
      */
     @ApiModelProperty("第三次金额")
     private Double thirdmonesy;
+    /**
+     * 第三次金额
+     */
+    @ApiModelProperty("第三次金额")
+    private Double thirdprice;
 
     /**
      * 总金额

@@ -38,7 +38,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/register")
-    public BaseResponse<Long> userRegister(@RequestBody UserRegisterRequest userRegisterRequest) {
+    public BaseResponse<String> userRegister(@RequestBody UserRegisterRequest userRegisterRequest) {
         if (userRegisterRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
@@ -48,7 +48,7 @@ public class UserController {
         if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword)) {
             return null;
         }
-        long result = userService.userRegister(userAccount, userPassword, checkPassword);
+        String result = userService.userRegister(userAccount, userPassword, checkPassword);
         return ResultUtils.success(result);
     }
 

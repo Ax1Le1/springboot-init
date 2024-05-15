@@ -1,7 +1,9 @@
 package com.spirit.springbootinit.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.spirit.springbootinit.model.entity.Weighing;
+import com.spirit.springbootinit.service.WeighingService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * WeighingController
@@ -12,5 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/post")
 public class WeighingController {
+    @Autowired
+    WeighingService weighingService;
 
+    @PostMapping("/save")
+    public void save(@RequestBody Weighing weighing) {
+        weighingService.add(weighing);
+    }
+
+    @GetMapping("calculateSum")
+    public Weighing calculateSum(String bsm) {
+        return weighingService.calculateSum(bsm);
+    }
 }

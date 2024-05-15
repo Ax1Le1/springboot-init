@@ -58,7 +58,7 @@ public class PostController {
             post.setTags(JSONUtil.toJsonStr(tags));
         }
         User loginUser = userService.getLoginUser(request);
-        post.setUserId(loginUser.getId());
+        post.setUserId(1L);
         boolean result = postService.save(post);
         ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
         long newPostId = post.getId();
