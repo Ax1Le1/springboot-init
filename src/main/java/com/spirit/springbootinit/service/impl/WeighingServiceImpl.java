@@ -11,8 +11,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.util.StopWatch;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * WeighingServiceImpl
@@ -31,16 +39,48 @@ public class WeighingServiceImpl extends ServiceImpl<WeighingDao, Weighing> impl
     @Autowired
     WeighingDao weighingDao;
 
+
+    public void test() {
+        HashMap<String, String> map = new HashMap<>();
+        int size = 1000;
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(60, 1000, 10000, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(10));
+        List<CompletableFuture> completableFutureList = new ArrayList<>();
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+        for (int i = 0; i < 50; i++) {
+            List<Weighing> list = new ArrayList<>();
+            while (true) {
+                Weighing t = new Weighing();
+                t.setBsm(UUID.randomUUID().toString());
+                t.setFirstprice(1.0);
+                t.setFirstweighing(1.0);
+                list.add(t);
+                if (list.size() % size == 0) {
+                    break;
+                }
+            }
+            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+                System.out.println("Thread" + Thread.currentThread().getName());
+                this.saveBatch(list, size);
+            }, executor);
+            completableFutureList.add(future);
+        }
+        CompletableFuture.allOf(completableFutureList.toArray(new CompletableFuture[]{})).join();
+        stopWatch.stop();
+        System.out.println(stopWatch.getTotalTimeMillis());
+    }
+
     @Override
     public Weighing add(Weighing weighing) {
-        //车重
-        String bsm = weighing.getBsm();
-        if (bsm != null) {
-            updateById(weighing);
-        } else {
-            weighing.setBsm(UUID.randomUUID().toString());
-            save(weighing);
-        }
+        test();
+//        //车重
+//        String bsm = weighing.getBsm();
+//        if (bsm != null) {
+//            updateById(weighing);
+//        } else {
+//            weighing.setBsm(UUID.randomUUID().toString());
+//            save(weighing);
+//        }
         return weighing;
     }
 
